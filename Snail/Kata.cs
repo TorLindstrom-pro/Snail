@@ -4,26 +4,17 @@ public static class Kata
 {
 	public static int[] Snail(int[][] ints)
 	{
-		var result = new List<int>();
-   		var (horizontal, vertical) = (0, 0);
-	    var goingRight = true;
+	    var arraySize = ints[0].Length;
+	    var totalCount = arraySize * arraySize;
 
-	    var totalCount = ints
-		    .SelectMany(number => number)
-		    .Count();
-	    
-	    while (result.Count < totalCount)
+	    var snail = new Snail(arraySize);
+
+	    while (snail.ConsumedCount < totalCount)
 	    {
-		    result.Add(ints[vertical][horizontal]);
-		    if (horizontal >= ints.Length - 1 && goingRight)
-		    {
-			    vertical++;
-			    goingRight = false;
-		    } 
-		    else if (goingRight) horizontal++;
-		    else horizontal--;
+		    snail.ConsumeNumber(ints);
+		    snail.MoveToNext();
 	    }
 
-	    return result.ToArray();
+	    return snail.Result.ToArray();
 	}
 }
