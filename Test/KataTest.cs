@@ -23,4 +23,14 @@ public class KataTest
         // Assert
         Assert.Equal([2], result);
     }
+
+    [Fact(DisplayName = "2x2 array")]
+    public void TwoByTwoArray()
+    {
+        // Act
+        var result = Kata.Snail([[1,2],[4,3]]);
+        
+        // Assert
+        Assert.Equal([1,2,3,4], result);
+    }
 }
