@@ -19,13 +19,13 @@ public class Snail(int arraySize)
 			case "right":
 				_horizontal++;
 				
-				if (_horizontal == _length - 1)
+				if (_horizontal + _lap == _length - 1)
 					_direction = "down";
 				break;
 			case "down":
 				_vertical++;
 				
-				if (_vertical == _length - 1)
+				if (_vertical + _lap == _length - 1)
 					_direction = "left";
 				break;
 			case "left":
