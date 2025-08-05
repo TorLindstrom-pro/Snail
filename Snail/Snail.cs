@@ -5,24 +5,48 @@ public class Snail(int arraySize)
 	public readonly List<int> Result = [];
 	private int _horizontal;
 	private int _vertical;
+	private int _length = arraySize;
 	
 	public int ConsumedCount => Result.Count;
 
-	private bool _goingRight = true;
+	private string _direction = "right";
+	private int _lap;
 
 	public void MoveToNext()
 	{
-		if (_goingRight && _horizontal >= arraySize - 1)
+		switch (_direction)
 		{
-			_vertical++;
-			_goingRight = false;
-		} 
-		else if (_goingRight)
-			_horizontal++;
-		else
-			_horizontal--;
+			case "right":
+				_horizontal++;
+				
+				if (_horizontal == _length - 1)
+					_direction = "down";
+				break;
+			case "down":
+				_vertical++;
+				
+				if (_vertical == _length - 1)
+					_direction = "left";
+				break;
+			case "left":
+				_horizontal--;
+				
+				if (_horizontal == 0)
+					_direction = "up";
+				break;
+			case "up":
+				_vertical--;
+				
+				if (_vertical == 0)
+				{
+					_lap++;
+					_length--;
+					_direction = "right";
+				}
+				break;
+		}
 	}
 
 	public void ConsumeNumber(int[][] ints) => 
-		Result.Add(ints[_vertical][_horizontal]);
+		Result.Add(ints[_vertical + _lap][_horizontal + _lap]);
 }

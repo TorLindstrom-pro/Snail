@@ -33,4 +33,18 @@ public class KataTest
         // Assert
         Assert.Equal([1,2,3,4], result);
     }
+
+    [Fact(DisplayName = "3x3 array")]
+    public void ThreeByThreeArray()
+    {
+        // Act
+        var result = Kata.Snail([
+            [1,2,3],
+            [8,9,4],
+            [7,6,5]
+        ]);
+        
+        // Assert
+        Assert.Equal([1,2,3,4,5,6,7,8,9], result);
+    }
 }
