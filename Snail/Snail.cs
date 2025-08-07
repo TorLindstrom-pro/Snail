@@ -11,6 +11,9 @@ public class Snail(int arraySize)
 
 	private string _direction = "right";
 	private int _lap;
+	
+	private int VerticalIndex => _vertical + _lap;
+	private int HorizontalIndex => _horizontal + _lap;
 
 	public void MoveToNext()
 	{
@@ -47,6 +50,5 @@ public class Snail(int arraySize)
 		}
 	}
 
-	public void ConsumeNumber(int[][] ints) => 
-		Result.Add(ints[_vertical + _lap][_horizontal + _lap]);
+	public void ConsumeNumber(int[][] ints) => Result.Add(ints[VerticalIndex][HorizontalIndex]);
 }
