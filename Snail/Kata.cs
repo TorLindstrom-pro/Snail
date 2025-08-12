@@ -4,17 +4,70 @@ public static class Kata
 {
 	public static int[] Snail(int[][] ints)
 	{
-	    var arraySize = ints[0].Length;
-	    var totalCount = arraySize * arraySize;
+		var arraySize = ints[0].Length;
+		var totalCount = arraySize * arraySize;
 
-	    var snail = new Snail(arraySize);
+		var snail = new Snail(arraySize);
 
-	    while (snail.ConsumedCount < totalCount)
-	    {
-		    snail.ConsumeNumber(ints);
-		    snail.MoveToNext();
-	    }
+		while (snail.ConsumedCount < totalCount)
+		{
+			snail.ConsumeNumber(ints);
+			snail.MoveToNext();
+		}
 
-	    return snail.Result.ToArray();
+		return snail.Result.ToArray();
 	}
+}
+
+public class Snail(int arraySize)
+{
+	public readonly List<int> Result = [];
+	private int _horizontal;
+	private int _vertical;
+	private int _length = arraySize;
+	
+	public int ConsumedCount => Result.Count;
+
+	private string _direction = "right";
+	private int _lap;
+	
+	private int VerticalIndex => _vertical + _lap;
+	private int HorizontalIndex => _horizontal + _lap;
+
+	public void MoveToNext()
+	{
+		switch (_direction)
+		{
+			case "right":
+				_horizontal++;
+				
+				if (_horizontal + _lap == _length - 1)
+					_direction = "down";
+				break;
+			case "down":
+				_vertical++;
+				
+				if (_vertical + _lap == _length - 1)
+					_direction = "left";
+				break;
+			case "left":
+				_horizontal--;
+				
+				if (_horizontal == 0)
+					_direction = "up";
+				break;
+			case "up":
+				_vertical--;
+				
+				if (_vertical == 0)
+				{
+					_lap++;
+					_length--;
+					_direction = "right";
+				}
+				break;
+		}
+	}
+
+	public void ConsumeNumber(int[][] ints) => Result.Add(ints[VerticalIndex][HorizontalIndex]);
 }
